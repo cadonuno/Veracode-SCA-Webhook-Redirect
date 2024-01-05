@@ -1,6 +1,6 @@
 # Veracode-SCA-Webhook-Redirect
 
-This Project exposes a Tomcat server that can redirect Veracode Agent-based SCA webhooks to Teams and Slack.
+This Project exposes a Tomcat server that can redirect Veracode Agent-based SCA web hooks to Teams and Slack.
 
 To configure it:
 * Create a file for your endpoints map in the following format (one line per workspace/project pair):
