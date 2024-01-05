@@ -1,7 +1,8 @@
 package com.cadonuno.webhookhandlers;
 
-import com.cadonuno.messages.ListFieldView;
-import com.cadonuno.messages.TeamsMessageBodyBuilder;
+import com.cadonuno.messages.bodybuilder.MessageBuilder;
+import com.cadonuno.messages.bodybuilder.MessageListElement;
+import com.cadonuno.messages.endpoints.WebhookEndpoint;
 import com.cadonuno.servlet.VeracodeWebhookRequest;
 
 public class ScanSuccessWebhookHandler implements WebhookHandler {
@@ -11,16 +12,16 @@ public class ScanSuccessWebhookHandler implements WebhookHandler {
     }
 
     @Override
-    public String getMessageBody(VeracodeWebhookRequest.Root webhookRequest) {
+    public String getMessageBody(WebhookEndpoint endpoint, VeracodeWebhookRequest.Root webhookRequest) {
         VeracodeWebhookRequest.Scan scan = webhookRequest.scan;
-        return TeamsMessageBodyBuilder.buildMessageFor(
-                ListFieldView.of("Scan ID", scan.id),
-                ListFieldView.of("Commit Hash", scan.commit),
-                ListFieldView.of("Branch", scan.branch),
-                ListFieldView.of("Tag", scan.tag),
-                ListFieldView.of("Report link", WebhookHandler.makeLink(scan.reportLink)),
-                ListFieldView.of("Number of vulnerabilities", scan.vulnIssuesCount),
-                ListFieldView.of("Number of out of date libraries", scan.outofDateIssuesCount),
-                ListFieldView.of("Number of license issues", scan.licenseIssuesCount));
+        return MessageBuilder.get(endpoint).buildMessageFor(
+                MessageListElement.of("Scan ID", scan.id),
+                MessageListElement.of("Commit Hash", scan.commit),
+                MessageListElement.of("Branch", scan.branch),
+                MessageListElement.of("Tag", scan.tag),
+                MessageListElement.of("Report link", scan.reportLink),
+                MessageListElement.of("Number of vulnerabilities", scan.vulnIssuesCount),
+                MessageListElement.of("Number of out of date libraries", scan.outofDateIssuesCount),
+                MessageListElement.of("Number of license issues", scan.licenseIssuesCount));
     }
 }
