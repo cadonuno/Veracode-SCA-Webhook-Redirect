@@ -1,16 +1,18 @@
 package com.cadonuno;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.owasp.esapi.ESAPI;
+import org.owasp.esapi.Logger;
 
 public class LogHandler {
-    private static final Logger LOGGER = LogManager.getRootLogger();
+    private static final Logger LOGGER = ESAPI.getLogger(LogHandler.class);
 
     public static void debug(String title, String message) {
-        LOGGER.debug(title + "\n" + message);
+        LOGGER.debug(Logger.SECURITY_SUCCESS, title);
+        LOGGER.debug(Logger.SECURITY_SUCCESS, message);
     }
 
     public static void error(String title, String message, Throwable throwable) {
-        LOGGER.error(title + "\n" + message, throwable);
+        LOGGER.error(Logger.SECURITY_SUCCESS, title);
+        LOGGER.error(Logger.SECURITY_SUCCESS, message, throwable);
     }
 }

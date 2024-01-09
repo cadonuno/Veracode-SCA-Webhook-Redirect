@@ -60,6 +60,5 @@ public class EndpointsMap {
         return Optional.ofNullable(endpointsMap.get(workspaceId))
                 .flatMap(workspaceMap -> Optional.ofNullable(workspaceMap.get(projectId)));
     }
-
-
+    
 }
